@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024  
+  end
+  
+  config.vm.box = "hashicorp/precise64"
+  config.vm.network "forwarded_port", guest: 8080, host: 8008,auto_correct: true
+  config.vm.network "forwarded_port", guest: 5005, host: 5005,auto_correct: true
+  
+  #refer to http://berkshelf.com/
+  config.berkshelf.enabled = true
+  config.vm.synced_folder "../DashBoard","/home/vagrant/DashBoard"
+  config.vm.synced_folder "../DashBoard-Client","/home/vagrant/DashBoard-Client"
+
+  config.vm.provision "chef_solo" do |chef|
+    chef.add_recipe "apt"    
+    chef.add_recipe "git"
+    chef.add_recipe "vim"    
+    chef.add_recipe "mongodb::10gen_repo"
+    chef.add_recipe "mongodb"
+    chef.add_recipe "grails"    
+
+  end
+
+  
+
+  
+end
