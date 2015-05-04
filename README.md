@@ -1,3 +1,3 @@
 # DashBoard
-user vagrant up from Devops folder
+use vagrant up from Devops folder
 
