@@ -10,25 +10,29 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |v|
     v.memory = 1024  
   end
-  
-  config.vm.box = "hashicorp/precise64"
-  config.vm.network "forwarded_port", guest: 8080, host: 8008,auto_correct: true
-  config.vm.network "forwarded_port", guest: 5005, host: 5005,auto_correct: true
-  
-  #refer to http://berkshelf.com/
-  config.berkshelf.enabled = true
-  config.vm.synced_folder "../DashBoard","/home/vagrant/DashBoard"
-  config.vm.synced_folder "../DashBoard-Client","/home/vagrant/DashBoard-Client"
 
-  config.vm.provision "chef_solo" do |chef|
-    chef.add_recipe "apt"    
-    chef.add_recipe "git"
-    chef.add_recipe "vim"    
-    chef.add_recipe "mongodb::10gen_repo"
-    chef.add_recipe "mongodb"
-    chef.add_recipe "grails"    
+  config.vm.define "dashboard" do |dashboard|
+      dashboard.vm.box = "hashicorp/precise64"
+      dashboard.vm.network "forwarded_port", guest: 8080, host: 8008,auto_correct: true
+      dashboard.vm.network "forwarded_port", guest: 5005, host: 5005,auto_correct: true
+  
+      #refer to http://berkshelf.com/
+      dashboard.berkshelf.enabled = true
+      dashboard.vm.synced_folder "../DashBoard","/home/vagrant/DashBoard"
+      dashboard.vm.synced_folder "../DashBoard-Client","/home/vagrant/DashBoard-Client"
 
+      dashboard.vm.provision "chef_solo" do |chef|
+        chef.add_recipe "apt"    
+        chef.add_recipe "git"
+        chef.add_recipe "vim"    
+        chef.add_recipe "mongodb::10en_repo"
+        chef.add_recipe "mongodb"
+        chef.add_recipe "grails"    
+
+      end
   end
+  
+  
 
   
 
