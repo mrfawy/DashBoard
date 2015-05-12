@@ -43,7 +43,8 @@ class AuthenticationController {
         }
         def result=authenticationService.registerUser(params.userName,params.password,"user")
         if(result){
-            redirect(controller: 'settings', action: 'index')
+            request.info="User created successfully ."
+            render(view: "index")
         }
         else{
             request.error="user already exists ."
