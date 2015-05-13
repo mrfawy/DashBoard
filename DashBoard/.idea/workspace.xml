@@ -1049,7 +1049,7 @@
     <property name="LayoutCode.rearrangeEntriesXHTML" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DashBoard-Client" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
