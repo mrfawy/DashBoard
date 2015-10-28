@@ -6,10 +6,17 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
 include_recipe "zip"
+execute "apt update" do
+    command "su vagrant -l -c 'yes |apt-get update --fix-missings'"
+    creates "/tmp/apt-update"
+    not_if { ::File.exists?("/tmp/apt-update}")}
+end
 include_recipe "java"
 
 package ['tmux']
+
 
 execute "install gvmtool" do
     command "su vagrant -l -c 'curl -s get.gvmtool.net | bash'"
